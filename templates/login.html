@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Login - RBAC Demo{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6 col-lg-5">
+        <div class="glass-card p-4 p-md-5">
+            <div class="text-center mb-4">
+                <i class="fa-solid fa-right-to-bracket text-info display-4 mb-2"></i>
+                <h3 class="fw-bold text-white">Welcome Back</h3>
+                <p class="text-secondary">Log in to obtain your JWT token & test RBAC permissions</p>
+            </div>
+
+            <!-- HTML Browser Form Login -->
+            <form action="{{ url_for('auth.web_login') }}" method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label text-white fw-semibold">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" class="form-control bg-dark text-white border-secondary" id="username" name="username" placeholder="Enter your username" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label text-white fw-semibold">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" class="form-control bg-dark text-white border-secondary" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info btn-lg w-100 fw-bold text-dark mb-3">
+                    <i class="fa-solid fa-sign-in-alt me-1"></i> Log In
+                </button>
+            </form>
+
+            <div class="text-center mt-3 pt-3 border-top border-secondary">
+                <span class="text-secondary">Don't have an account yet?</span>
+                <a href="{{ url_for('auth.web_register') }}" class="text-info text-decoration-none fw-semibold ms-1">Register here</a>
+            </div>
+        </div>
+
+        <!-- Beginner REST API Demo Console Box -->
+        <div class="glass-card p-4 mt-4">
+            <h5 class="text-info fw-bold mb-2">
+                <i class="fa-solid fa-code me-2"></i> Teaching REST API Tester
+            </h5>
+            <p class="text-secondary small mb-3">
+                Students can also send JSON requests to <code>POST /api/login</code> to inspect the JWT response payload.
+            </p>
+
+            <button class="btn btn-sm btn-outline-info w-100 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#restApiDemo">
+                <i class="fa-solid fa-terminal me-1"></i> Toggle REST API Tester Console
+            </button>
+
+            <div class="collapse" idrestApiDemo>
+                <div class="api-box mb-3">
+                    <strong>Endpoint:</strong> <code>POST /api/login</code><br>
+                    <strong>Headers:</strong> <code>Content-Type: application/json</code><br>
+                    <strong>Body:</strong> <code>{"username": "...", "password": "..."}</code>
+                </div>
+
+                <div class="mb-2">
+                    <input type="text" id="api_user" class="form-control form-control-sm bg-dark text-white border-secondary mb-2" placeholder="API Username">
+                    <input type="password" id="api_pass" class="form-control form-control-sm bg-dark text-white border-secondary mb-2" placeholder="API Password">
+                    <button class="btn btn-sm btn-info w-100 fw-bold text-dark" onclick="testApiLogin()">Test REST API Login</button>
+                </div>
+
+                <pre id="api_output" class="bg-black text-success p-2 rounded small mt-2 d-none" style="max-height: 150px; overflow-y: auto;"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function testApiLogin() {
+    const username = document.getElementById('api_user').value;
+    const password = document.getElementById('api_pass').value;
+    const output = document.getElementById('api_output');
+
+    output.classList.remove('d-none');
+    output.textContent = "Sending request to /api/login...";
+
+    try {
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        output.textContent = JSON.stringify(data, null, 2);
+    } catch (err) {
+        output.textContent = "Error: " + err.message;
+    }
+}
+</script>
+{% endblock %}
