@@ -12,8 +12,10 @@ pipeline {
         stage('Test') {
             steps {
                 bat '''
-                    python3 -m pip install -r requirements.txt
-                    python3 -m pytest
+                    python --version
+                    python -m pip --version
+                    python -m pip install -r requirements.txt
+                    python -m pytest
                 '''
             }
         }
