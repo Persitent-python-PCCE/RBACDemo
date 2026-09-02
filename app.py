@@ -37,12 +37,25 @@ def create_app():
         return redirect("/")
 
 
+
+
     with app.app_context():
         # db.drop_all()
         db.create_all()
+
+    @app.route("/health")
+    def health():
+        return {"Status":"UP"}, 200
+
+    @app.route("/")
+    def home():
+         return "FLASK ECOMM APP", 200
     return app
+
+
 
 
 if __name__ == '__main__':
     app = create_app()
     app.run(host='0.0.0.0', port=3000, debug=True)
+    
