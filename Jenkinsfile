@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    triggers {
+    triggers{
         githubPush()
     }
 
@@ -49,46 +49,4 @@ pipeline {
         }
     }
 
-    post {
-
-        success {
-            emailext(
-                subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """
-                    <h2>Jenkins Build Successful</h2>
-
-                    <p><b>Job:</b> ${env.JOB_NAME}</p>
-                    <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
-                    <p><b>Status:</b> SUCCESS</p>
-                    <p><b>Build URL:</b> ${env.BUILD_URL}</p>
-
-                    <p>
-                        Tests passed, SonarCloud analysis completed,
-                        Docker image was built and pushed successfully.
-                    </p>
-                """,
-                to: "your-email@example.com"
-            )
-        }
-
-        failure {
-            emailext(
-                subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """
-                    <h2>Jenkins Build Failed</h2>
-
-                    <p><b>Job:</b> ${env.JOB_NAME}</p>
-                    <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
-                    <p><b>Status:</b> FAILED</p>
-                    <p><b>Build URL:</b> ${env.BUILD_URL}</p>
-
-                    <p>
-                        One or more pipeline stages failed.
-                        Please check the Jenkins console output.
-                    </p>
-                """,
-                to: "your-email@example.com"
-            )
-        }
-    }
 }
