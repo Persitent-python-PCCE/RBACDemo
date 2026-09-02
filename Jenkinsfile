@@ -71,7 +71,7 @@ pipeline {
                     <p>
                         <b>URL</b>: ${env.BUILD_URL}
                     </p>
-                """",
+                """,
                 to: "arulanandha.guru@revature.com"
             )
         }
