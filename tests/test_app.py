@@ -1,8 +1,8 @@
-import app
+from app import create_app
 
 
 def test_home():
-    client = app.test_client()
+    client = create_app().test_client()
 
     response = client.get("/")
 
