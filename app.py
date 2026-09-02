@@ -49,7 +49,7 @@ def create_app():
 
     @app.route("/")
     def home():
-         return "FLASK ECOMM APP", 200
+         return "FLASK ECOMMERCE APP", 200
     return app
 
 
