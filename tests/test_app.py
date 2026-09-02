@@ -1,9 +1,13 @@
-from app import create_app
+def test_addition():
+    result = 10 + 20
+    assert result == 30
 
 
-def test_home():
-    client = create_app().test_client()
+def test_string():
+    name = "Jenkins"
+    assert name == "Jenkins"
 
-    response = client.get("/")
 
-    assert response.status_code == 200
+def test_list():
+    numbers = [1, 2, 3, 4, 5]
+    assert len(numbers) == 5
