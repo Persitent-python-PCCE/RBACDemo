@@ -49,4 +49,32 @@ pipeline {
         }
     }
 
+    post{
+        success{
+            emailext(
+                subject: "SUCCESS ${env.JOB_NAME}  #${env.BUILD_NUMBER}",
+                body: """
+                    <h2>Jenkins build Successful</h2>
+                    <p>
+                        <b>URL</b>: ${env.BUILD_URL}
+                    </p>
+                """",
+                to: "arulanandha.guru@revature.com"
+            )
+        }
+
+        failure{
+            emailext(
+                subject: "FAILED ${env.JOB_NAME}  #${env.BUILD_NUMBER}",
+                body: """
+                    <h2>Jenkins build Failed</h2>
+                    <p>
+                        <b>URL</b>: ${env.BUILD_URL}
+                    </p>
+                """",
+                to: "arulanandha.guru@revature.com"
+            )
+        }
+    }
+
 }
