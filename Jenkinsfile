@@ -3,19 +3,18 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         checkout scm
+        //     }
+        // }
 
         stage('Test') {
             steps {
                 bat '''
-                    python --version
-                    python -m pip --version
-                    python -m pip install -r requirements.txt
-                    python -m pytest
+                    "C:\\Users\\ArulanandhaGuru\\AppData\\Local\\Programs\\Python\\Python311\\python.exe" --version
+                    "C:\\Users\\ArulanandhaGuru\\AppData\\Local\\Programs\\Python\\Python311\\python.exe" -m pip install -r requirements.txt
+                    "C:\\Users\\ArulanandhaGuru\\AppData\\Local\\Programs\\Python\\Python311\\python.exe" -m pytest
                 '''
             }
         }
