@@ -21,7 +21,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 bat '''
-                    docker build -t YOUR_DOCKERHUB_USERNAME/flask-app:latest .
+                    docker build -t arulguru03/flask-app:latest .
                 '''
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                 ]) {
                     bat '''
                         docker login -u %DOCKER_USER% -p %DOCKER_PASS%
-                        docker push YOUR_DOCKERHUB_USERNAME/flask-app:latest
+                        docker push arulguru03/flask-app:latest
                     '''
                 }
             }
