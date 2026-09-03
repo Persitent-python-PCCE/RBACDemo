@@ -26,7 +26,7 @@ pipeline {
         stage('SonarCloud Analysis'){
             steps{
                 script {
-                    def scannerHone = tool 'SonarScanner'
+                    def scannerHome = tool 'SonarScanner'
                     withSonarQubeEnv('SonarCloud'){
                         bat "\"${scannerHome}\\bin\\sonar-scanner.bat\""
                     }
