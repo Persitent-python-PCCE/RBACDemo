@@ -23,6 +23,25 @@ pipeline {
             }
         }
 
+        stage('SonarCloud Analysis'){
+            steps{
+                script {
+                    def scannerHone = tool 'SonarScanner'
+                    withSonarQubeEnv('SonarCloud'){
+                        bat "\"${scannerHome}\\bin\\sonar-scanner.bat\""
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate'){
+            steps{
+                timeout(time: 2, unit: 'MINUTES'){
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 bat '''
