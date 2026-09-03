@@ -45,7 +45,7 @@ def create_app():
 
     @app.route("/health")
     def health():
-        return {"Status":"UP"}, 200
+        return {"Status":"UP."}, 200
 
     @app.route("/")
     def home():
